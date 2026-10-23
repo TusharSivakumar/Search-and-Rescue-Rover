@@ -6,9 +6,9 @@ FRAME_HEIGHT = 480
 FRAMERATE = 30
 
 # Detection (HSV color range of the victim marker; tune with tools/tune_hsv.py)
-VICTIM_HSV_LOW = (0, 0, 0)       # TODO
-VICTIM_HSV_HIGH = (0, 0, 0)      # TODO
-MIN_BLOB_AREA_PX = 0             # TODO: ignore blobs smaller than this
+VICTIM_HSV_LOW = (10, 150, 249)
+VICTIM_HSV_HIGH = (20, 255, 255)    
+MIN_BLOB_AREA_PX = 300           # TODO: ignore blobs smaller than this
 FRAMES_TO_CONFIRM = 0            # TODO: detections in a row before reporting (cuts false positives)
 
 # Serial link to the microcontroller

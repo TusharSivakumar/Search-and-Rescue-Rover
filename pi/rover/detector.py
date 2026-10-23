@@ -34,9 +34,40 @@ class VictimDetector:
             return None
         cx = int(M["m10"] / M["m00"])
         cy = int(M["m01"] / M["m00"])
+
         return Detection(cx, cy, cv.contourArea(bigg))
 
 
     def draw(self, frame_bgr, detection):
-        """Draw the detection on the frame for debugging and demo video."""
-        raise NotImplementedError
+        if detection is None:
+            return frame_bgr
+        frame = frame_bgr
+
+
+        cx, cy = detection.center_x, detection.center_y
+        area = detection.area
+
+        GREEN = (0, 255, 0)      # BGR
+        WHITE = (255, 255, 255)
+
+
+        cv.circle(frame, (cx, cy), 6, GREEN, -1)
+
+
+        radius = int(np.sqrt(area / np.pi))
+        cv.circle(frame, (cx, cy), radius, GREEN, 2)
+
+
+        label = f"VICTIM  area={int(area)}"
+        cv.putText(frame, label, (cx + radius + 5, cy - radius),
+        cv.FONT_HERSHEY_SIMPLEX, 0.6, GREEN, 2)
+
+
+        h, w = frame.shape[:2]
+        cv.line(frame, (w // 2, 0), (w // 2, h), WHITE, 1)
+
+
+        cv.line(frame, (w // 2, h // 2), (cx, cy), WHITE, 1)
+        return frame_bgr
+
+
